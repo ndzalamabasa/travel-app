@@ -23,14 +23,16 @@ const destination = computed(() => destinations.value.find((d) => d.id === props
     <h2>Top Experiences in {{ destination.name }}</h2>
 
     <div class="cards">
-        <router-link :to="{name: experience, props: {id: destination.id, slug:}}">
-
-            <ExperienceCard
-            v-for="experience in destination.experiences"
-            :key="experience.slug"
-            :experience="experience"
-            />
-        </router-link>
+      <router-link
+        v-for="experience in destination.experiences"
+        :key="experience.slug"
+        :to="{
+          name: 'experience.show',
+          params: { id: destination.id, slug: destination.slug, experienceSlug: experience.slug }
+        }"
+      >
+        <ExperienceCard :experience="experience" />
+      </router-link>
     </div>
   </section>
 </template>
